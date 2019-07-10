@@ -1,0 +1,45 @@
+﻿@using OurRoots.WebUI.Infrastructure.Helpers
+@model OurRoots.Domain.Entities.ApplicationUser
+@{
+    ViewBag.Title = "Account Details";
+    string roleName = PageData["roleName"];
+
+    //bool developer = (bool)ViewBag.Developer;
+    bool developer = User.IsInRole("Developer");
+    var helper = new UserHelper(Model);
+    string[] roles = helper.GetUserRoles();
+}
+
+<!-- Section:  -->
+<section>
+    <div class="container pb-30">
+        <div class="section-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="line-bottom">Account Details for @Model.FullName.</h3>
+
+                    @Html.Bootstrap().ActionLink("Edit Profile", "Edit").RouteValues(new { id = Model.DisplayId }).AppendIcon("glyphicon glyphicon-user") |
+                    @Html.Bootstrap().ActionLink("Reset password", "ResetPassword").RouteValues(new { id = Model.DisplayId }).AppendIcon("fa fa-lock") |
+                    @Html.Bootstrap().ActionLink("Delete User", "Delete").RouteValues(new { id = Model.DisplayId }).AppendIcon("fa fa-user-times")  <br/> 
+
+                    @*@Html.Bootstrap().ActionLinkButton("Back", "Index", "Users").Style(ButtonStyle.Success)*@
+
+                    @Html.Partial("Partials/_Summary", Model)
+                    @if (roles.Contains("Candidate"))
+                    {
+                        <div class="col-md-6">
+                            @Html.Partial("Partials/_Referees", Model.References)
+
+                        </div>
+                    }
+                    @Html.Bootstrap().ActionLinkButton("Back", "Index", "Users")
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+

@@ -1,0 +1,63 @@
+﻿@model OurRoots.WebUI.Models.GalleryUploads.GalleryListViewModel
+<!-- Section:  -->
+<section>
+    <div class="container pb-30">
+        <div class="section-content">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="col-md-12">
+                        <div class="col-md-8">
+                            <h3 class="line-bottom">Products.</h3>
+                        </div>
+
+                        <div class="col-md-4">
+                            @Html.Bootstrap().ActionLinkButton("New Photo", "New", "GalleryUpload").Style(ButtonStyle.Primary).AppendIcon("fa fa-plus")
+                        </div>
+
+                    </div>
+
+                    
+                    <br/><hr/>
+
+                    <div class="table">
+                        <table class="table">
+                            <thead>
+                                <tr>                                   
+                                    <th>Image</th>
+                                    <th>Upload Date</th>
+                                    <th></th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.GalleyUploads.Count() > 0)
+                                {
+                                    foreach (var item in Model.GalleyUploads)
+                                    {
+                                        <tr>
+                                           
+                                            <td><img src="@(string.IsNullOrEmpty(item.FolderPath)? "~/Content/assets/images/products/favicon.ico": @Url.Content(item.FolderPath))" alt="image" style="height:100px;max-width:100px;" /></td>
+                                            <td>@item.UploadDate</td>
+                                            <td>@Html.Bootstrap().ActionLinkButton("Delete", "Delete").RouteValues(new { id = item.GalleryUploadId }).Style(ButtonStyle.Danger)</td>
+
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="6">There are no records matching your search criteria</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+

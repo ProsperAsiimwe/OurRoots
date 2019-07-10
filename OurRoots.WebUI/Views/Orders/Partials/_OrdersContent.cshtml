@@ -1,0 +1,63 @@
+﻿@model OurRoots.WebUI.Models.Orders.OrderListViewModel
+<!-- Section:  -->
+<section>
+    <div class="container pb-30">
+        <div class="section-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="line-bottom">Orders.</h3>
+
+                    <div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Address</th>
+                                    <th>Items</th>
+                                    <th>Total Cost</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Orders.Count() > 0)
+                                {
+                                    foreach (var item in Model.Orders)
+                                    {
+                                        var css = item.GetStatusCssClass();
+                                        ButtonStyle button_css = OurRoots.WebUI.Infrastructure.Helpers.UserHelper.GetButtonStyle(css);
+                                        <tr class="@css">
+                                            <td>@item.OrderId</td>
+                                            <td>@item.Name</td>
+                                            <td>@item.Email</td>
+                                            <td>@item.Phone</td>
+                                            <td>@item.FormatAddress(",")</td>
+                                            <td>@Html.ParseList(item.Items.ToList().Select(p => string.Format("{0} {1}", p.Quantity, p.Product.productName)).ToArray())</td>
+                                            <td>$@item.Cost</td>
+                                            <td>@item.Status</td>
+                                            <td>@Html.Bootstrap().ActionLinkButton("Update Status", "Edit").RouteValues(new { id = item.OrderId }).Style(button_css).AppendIcon("fa fa-edit")</td>
+
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="6">There are no records matching your search criteria</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+

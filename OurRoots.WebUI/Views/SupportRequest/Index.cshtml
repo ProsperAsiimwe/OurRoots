@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "Support Requests " + Settings.COMPANY_NAME;
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    string companyName = Settings.COMPANY_NAME;
+}
+
+@Html.Partial("Partials/_SupportRequestContent")
+
+@section Scripts {
+}

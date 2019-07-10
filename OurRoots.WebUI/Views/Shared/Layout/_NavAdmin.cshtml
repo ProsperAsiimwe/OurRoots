@@ -1,0 +1,44 @@
+﻿@using OurRoots.WebUI.Infrastructure.Helpers;
+@{
+    var active = ViewBag.Active;//.Class()
+}
+<li class="@(active == "Product" ? "active" : "")">   
+    @Html.Bootstrap().ActionLink("Products", "Index", "Product")
+    
+</li>
+
+<li class="@(active == "Orders" ? "active" : "")">
+    @Html.Bootstrap().ActionLink("Orders", "Index", "Orders")
+   
+</li>
+
+<li class="@(active == "Gallery" ? "active" : "")">
+    @Html.Bootstrap().ActionLink("Gallery", "Index", "GalleryUpload")
+ 
+</li>
+
+<li class="@(active == "Messages" ? "active" : "")">
+    @Html.Bootstrap().ActionLink("Messages", "Index", "ContactMessage")
+
+</li>
+
+<li><a href="#">Account</a>
+
+    <ul class="dropdown">
+
+        <li class="@(active == "Account" ? "active" : "")">@Html.NavigationLink("Admins", "Index", "Users")</li>
+        <li class="@(active == "Account" ? "active" : "")">@Html.NavigationLink("Change password", "ChangePwd", "Account")</li>
+
+    </ul>
+       
+</li>
+
+@*<li class="nav-item">
+    <a class="nav-link">Account <i data-feather="chevron-down"></i></a>
+    <ul class="dropdown_menu">
+
+        <li class="nav-item"> @Html.ActionLink("Admins", "Index", "Users", null, new { @class = "nav-link" })</li>
+         <li class="nav-item"> @Html.ActionLink("Change password", "ChangePwd", "Account", null, new { @class = "nav-link" })</li>
+
+    </ul>
+</li>*@

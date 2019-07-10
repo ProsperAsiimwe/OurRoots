@@ -1,0 +1,75 @@
+﻿@model OurRoots.WebUI.Models.Orders.OrderStatus
+
+<!-- Section:  -->
+<section>
+    <div class="container pb-30">
+        <div class="section-content">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="col-sm-12">
+                        <div class="col-sm-6">
+
+                            <h4 class="mt-0 mb-30 line-bottom">Edit Status.</h4>
+
+                        </div>
+
+                        <div class="col-sm-6">
+                            @Html.Bootstrap().ActionLinkButton("Back", "Index", "Orders").Style(ButtonStyle.Success)
+
+                        </div>
+                           
+                        </div>
+
+                   
+
+                    <br /><hr />
+
+                    <!-- Contact Form -->
+                    @using (Html.BeginForm("Edit", "Orders", FormMethod.Post, new { id = "contact_form", name = "contact_form" }))
+                    {
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(m => m.OrderId)
+
+
+                        <div class="row">
+                            
+                            <div class="col-sm-6">
+                                <div class="form-group">                                   
+                                    
+                                    @Html.Bootstrap().RadioButtonsFromEnumFor(p => p.Status)
+                                    @*@Html.RadioButtonFor(model => model.Status, Status.Pending)@Html.Label("Pending")<br/><hr/>
+
+                                   
+                                    @Html.RadioButtonFor(model => model.Status, Status.Dispatched)@Html.Label("Dispatched")<br/><hr/>
+
+                                   
+                                    @Html.RadioButtonFor(model => model.Status, Status.Delivered)@Html.Label("Delivered")<br /><hr />
+
+
+                                    @Html.RadioButtonFor(model => model.Status, Status.Returned)@Html.Label("Returned")<br /><hr />*@
+
+                                </div>
+                            </div>
+                       
+
+                        </div>
+
+                  
+
+                        <div class="form-group">
+                            @Html.Bootstrap().SubmitButton().Class("btn btn-primary").Text("Edit Status")
+                            <button type="reset" class="btn btn-default btn-flat btn-theme-colored">Reset</button>
+                        </div>
+
+                    }
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+

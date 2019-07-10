@@ -1,0 +1,64 @@
+﻿@model OurRoots.Domain.Entities.Product
+
+<!-- Section:  -->
+<section>
+    <div class="container pb-30">
+        <div class="section-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="line-bottom">Are you sure you want to delete this?</h3>
+
+                    @Html.Bootstrap().ActionLinkButton("Back", "Index", "Product").Style(ButtonStyle.Success)
+
+                    <hr/>
+
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.productId)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.productId)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.productName)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.productName)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.description)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.description)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Price)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Price)
+                        </dd>
+                                             
+                    </dl>
+
+                    @using (Html.BeginForm("DeleteConfirmed", "Product", new { id = Model.productId }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Bootstrap().SubmitButton().Text("Delete Product").Style(ButtonStyle.Danger)
+
+                    }
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+

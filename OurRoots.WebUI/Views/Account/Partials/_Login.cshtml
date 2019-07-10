@@ -1,0 +1,29 @@
+﻿@model OurRoots.WebUI.Models.Account.LoginViewModel
+
+
+    @using (Html.BeginForm("Login", "Account")) {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-left-to-w3l">
+            <span class="fa fa-envelope-o" aria-hidden="true"></span>
+            @Html.Bootstrap().TextBoxFor(m => m.Email).Placeholder().ShowValidationMessage(true).HtmlAttributes(new { type="email", required = "" })
+           
+            @*<input type="email" name="email" placeholder="Email" required="">*@
+
+            <div class="clear"></div>
+        </div>
+
+        <div class="form-left-to-w3l">
+            <span class="fa fa-lock" aria-hidden="true"></span>
+            @Html.Bootstrap().PasswordFor(m => m.Password).Placeholder().HtmlAttributes(new { autocomplete = "off", type = "password", required = "" }).ShowValidationMessage(true)
+           
+             <div class="clear"></div>
+        </div>
+
+        <div class="btnn">
+            @Html.Bootstrap().SubmitButton().ButtonBlock().Text("Sign in").Class("btn btn-primary account-btn")
+        </div>
+
+    }
+  

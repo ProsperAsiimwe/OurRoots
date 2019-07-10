@@ -1,0 +1,188 @@
+﻿@model OurRoots.WebUI.Models.Dashboard.DashboardModel
+@{
+    ViewBag.Title = "Admin Dashboard";
+    string thisMonth = DateTime.Today.ToString("MMMM");
+
+}
+<section class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9">
+                <h1>Welcome to @Settings.COMPANY_NAME</h1>
+                <p>Below is a summary of activity and records requiring action</p>
+            </div>
+            <div class="col-sm-3">
+                @*@Html.Action("Summary", "Cart")*@
+                @if (Model.PaymentNotifications().Count() > 0)
+                {
+                    @Html.ParseList(Model.PaymentNotifications(), "text-danger")
+                }
+            </div>
+        </div>      
+    </div>
+</section>
+<div class="dashboard-statistics">
+    <div class="container">
+        @Html.Action("GetSaleStats", "Sales")
+
+        @*more cards here*@
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
+                <div class="dash-widget2"> 
+                    <span class="dash-widget-icon bg-success"><i class="fa fa-handshake-o"></i></span>                  
+                    <div class="dash-widget-info">
+                        <h3>@Model.TotalSales().ToString("n0")</h3>
+                        <span>@thisMonth Sales</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
+                <div class="dash-widget2">
+                    <span class="dash-widget-icon bg-info"><i class="fa fa-credit-card-alt"></i></span>
+                    <div class="dash-widget-info">
+                        <h3>@Model.TotalExpenditure().ToString("n0")</h3>
+                        <span>@thisMonth Expenditure</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
+                <div class="dash-widget2">
+                    <span class="dash-widget-icon bg-warning"><i class="fa fa-money"></i></span>
+                    <div class="dash-widget-info">
+                        <h3>@Model.Profit().ToString("n0")</h3>
+                        <span>@thisMonth Profits</span>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <hr />
+    </div>
+</div>
+
+
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="card-box">
+                    <div class="card-block">
+                        <h5 class="text-bold card-title">Latest Activity</h5>
+                        <div class="table-responsive">
+                            <table class="table table-striped m-b-0">
+                                <tbody>
+                                    @foreach (var item in Model.GetLatestActivity())
+                                    {
+                                        <tr>
+                                            <td>
+                                                <p>@Html.Raw(item.Description.Replace(Environment.NewLine, "<br />"))</p>
+                                            </td>
+                                            <td class="recorded">
+                                                <span class="date"><i class="fa fa-calendar-o"></i>@item.Recorded.ToString("dd/MM/yyyy HH:mm")</span>
+                                                <span class="user"><i class="fa fa-user"></i>@(item.RecordedBy != null ? item.RecordedBy.FullName : "System")</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-md-6" id="panel-activity">
+                <div class="card-box">
+                    <div class="card-block">
+                        @Html.Action("ActivityAsLine", "Charts")
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                @*here is where am testing from*@
+                <div class="row dashboard-row">
+                    <div class="col-sm-6 col-md-6">
+                        <div class="chart-heading">
+                            <h2>Branch Sales</h2>
+                        </div>
+                        <div id="pie-chart" style="height: 400px; width: auto" data-data="@Model.PieData">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <div class="chart-heading">
+                            <h2>Recent Sales</h2>
+                        </div>
+                        <div id="bar-chart" style="height: 400px; width: auto" data-data=@Model.ChartData>
+
+                        </div>
+                    </div>
+                </div>
+
+                <script src="~/Scripts/Admin/admin-modal.js"></script>
+
+                @*@section BreadcrumbLight {
+                <li class="breadcrumb-item">Dashboard</li>
+            }*@
+
+                @section Scripts {
+                    <script type="text/javascript" src="~/Scripts/charts/line.js"></script>
+                    <script type="text/javascript" src="~/Scripts/site/sparkline.js"></script>
+                    <script type="text/javascript" src="~/Scripts/site/script.js"></script>
+                    <script type="text/javascript" src="~/Scripts/site/raphael.min.js"></script>
+                    <script type="text/javascript" src="~/Scripts/site/morris.min.js"></script>
+                    <script>
+
+                        var branch_data = $("#pie-chart").data("data");
+                        new Morris.Donut({
+                            element: 'pie-chart',
+                            resize: true,
+                            colors: ['#37986f', '#667dbe', '#ed1f0e', '#464646'],
+                            data: branch_data
+                        });
+
+                        var sales_data = $("#bar-chart").data("data");
+
+                        var barchart = new Morris.Line({
+                            element: 'bar-chart',
+                            data: sales_data,
+                            xkey: 'date',
+                            ykeys: ['sales', 'expenses'],
+                            labels: ['Sales', 'Expenses'],
+                            xLabelAngle: 60,
+                            xLabels: 'day',
+                            xLabelFormat: function (d) {
+                                var weekdays = new Array(7);
+                                weekdays[0] = "SUN";
+                                weekdays[1] = "MON";
+                                weekdays[2] = "TUE";
+                                weekdays[3] = "WED";
+                                weekdays[4] = "THU";
+                                weekdays[5] = "FRI";
+                                weekdays[6] = "SAT";
+
+                                return weekdays[d.getDay()] + '-' +
+                                       ("0" + (d.getMonth() + 1)).slice(-2) + '-' +
+                                       ("0" + (d.getDate())).slice(-2);
+                            },
+                            resize: true
+                        });
+
+
+
+                    </script>
+
+                    <script type="text/javascript" src="~/Content/assets/plugins/jquery-knob/excanvas.js"></script>
+                    <script type="text/javascript" src="~/Content/assets/plugins/jquery-knob/jquery.knob.js"></script>
+
+                    <script>
+                        $(function () {
+                            $(".knob").knob();
+                        });
+                    </script>
+                }

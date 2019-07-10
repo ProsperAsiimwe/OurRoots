@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Welcome to " + Settings.COMPANY_NAME;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string companyName = Settings.COMPANY_NAME;
+}
+
+
+@Html.Partial("Partials/Index/_Home")
+@Html.Partial("Partials/Index/_About")
+@Html.Partial("Partials/Index/_Boxes")
+@*@Html.Partial("Partials/Index/_Events")
+@Html.Partial("Partials/Index/_Gallery")
+@Html.Partial("Partials/Index/_Blog")
+@Html.Partial("Partials/Index/_Partners")*@
+
+
+@section Scripts {
+}

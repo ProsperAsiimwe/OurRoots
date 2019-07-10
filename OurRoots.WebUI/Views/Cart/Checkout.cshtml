@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "Checkout - " + Settings.COMPANY_NAME;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string companyName = Settings.COMPANY_NAME;
+}
+
+@Html.Partial("Partials/_CheckoutContent")
+
+@section Scripts {
+}

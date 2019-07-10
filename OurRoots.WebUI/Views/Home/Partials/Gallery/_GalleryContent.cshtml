@@ -1,0 +1,41 @@
+﻿@model OurRoots.WebUI.Models.GalleryUploads.GalleryListViewModel
+
+<!-- Section: inner-header -->
+<section class="inner-header divider parallax layer-overlay overlay-dark-5" data-stellar-background-ratio="0.5" data-bg-img="@Url.Content("~/Content/assets/images/gallery/6.jpeg")">
+    <div class="container pt-100 pb-50">
+        <!-- Section Content -->
+        <div class="section-content pt-100">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="title text-white">Gallery</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Gallery Grid 4 -->
+
+<section>
+    <div class="container lazyImages">
+
+        <div class="row">
+
+            @if (Model.GalleyUploads.Count() > 0)
+            {
+                foreach (var item in Model.GalleyUploads)
+                {
+                    <div class="column">
+                        <img alt="Pic" style="width:280px; height:300px"
+                             src="@Url.Content("~/Content/assets/images/preloaders/picLoader2.gif")"
+                             data-echo="@Url.Content(item.FolderPath)">
+                    </div>
+                }
+            }
+
+        </div>
+
+
+        </div>
+</section>
+

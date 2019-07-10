@@ -1,0 +1,88 @@
+﻿@model OurRoots.WebUI.Models.GalleryUploads.GalleryViewModel
+
+<!-- Section:  -->
+<section>
+    <div class="container pb-30">
+        <div class="section-content">
+            <div class="row">
+                <div class="col-md-12">
+
+
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <h4 class="mt-0 mb-30 line-bottom">Add new photos.</h4>
+                        </div>
+
+                        <div class="col-md-6">
+                            @Html.Bootstrap().ActionLinkButton("Back", "Index", "GalleryUpload").Style(ButtonStyle.Success)
+                        </div>
+
+                    </div>
+                   
+
+                    <!-- Contact Form -->
+                    @using (Html.BeginForm("New", "GalleryUpload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                        <div class="row">
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.GalleryImages)
+                                    @Html.TextBoxFor(p => p.GalleryImages, new { @multiple = "multiple", type = "file", id = "file-0", required="" })                                  
+                                    @Html.ValidationMessageFor(m => m.GalleryImages, "", new { @class = "text-danger" })
+
+                                    @*@Html.TextBoxFor(p => p.GalleryImage, new { @multiple = "multiple", type = "file", id = "file-0" })*@
+
+                                </div>
+                                </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.Bootstrap().SubmitButton().Class("btn btn-primary").Text("Upload")                           
+                            <button type="reset" class="btn btn-default btn-flat btn-theme-colored">Reset</button>
+                        </div>
+
+                    }
+
+                  
+                </div>
+
+            </div>
+        </div>
+
+        @if (ViewBag.UploadSuccess == true)
+        {
+            <span>Upload colpmeled successfully</span>
+        }
+
+
+    </div>
+</section>
+
+
+@*<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+
+<script src="~/Scripts/piexif.min.js"></script>
+<script src="~/Scripts/sortable.min.js"></script>
+<script src="~/Scripts/fileinput.min.js"></script>
+<script src="~/Scripts/theme.js"></script>
+<script src="~/Scripts/site/theme.js"></script>
+<script>
+
+        $("#file-0").fileinput({
+            theme: 'fas',
+            uploadUrl: '@Url.Action("Upload")'
+        });
+
+
+</script>*@
+
+

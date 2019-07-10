@@ -1,0 +1,175 @@
+﻿@using OurRoots.Domain.Models
+@model OurRoots.WebUI.Models.Products.ProductListViewModel
+
+@{
+    ViewBag.Title = "Shop";
+    var cart = (Cart)Session["Cart"] == null ? null : (Cart)Session["Cart"];
+}
+
+<!-- Section: inner-header -->
+<section class="inner-header divider parallax layer-overlay overlay-dark-5" data-bg-img="@Url.Content("~/Content/assets/images/bg/bg1.jpg")">
+    <div class="container pt-90 pb-50">
+        <!-- Section Content -->
+        <div class="section-content pt-100">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="title text-white">Shop</h3>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container mt-30 mb-30 p-30">
+        <div class="section-content">
+            <div class="row">
+                <div class="col-sm-12 col-md-9">
+
+                    <div class="row multi-row-clearfix">
+                       
+                            <div class="products">
+
+
+                                @if (Model.Products.Count() > 0)
+                                {
+                                    foreach (var item in Model.Products)
+                                    {
+
+                                        <div class="col-sm-6 col-md-4 col-lg-4 mb-30">
+                                            <div class="product pb-0">
+                                                @*<span class="tag-sale">Sale!</span>*@
+                                                <div class="product-thumb">
+                                                    <img src="@(string.IsNullOrEmpty(item.FileName)? "~/content/assets/images/products/favicon.ico": @Url.Content(string.Format("~/content/productimages/{0}",item.FileName)))" alt="image" class="img-responsive img-fullwidth" style="width:280px; height:300px;">
+                                                    <div class="overlay">
+                                                          @using (Html.BeginForm("AddToCart", "Cart"))
+                                                            {
+
+                                                              <div class="col-sm-12">
+
+                                                                  <div class="col-sm-4">
+                                                                      <div class="btn-add-to-cart-wrapper">
+                                                                         
+                                                                              @Html.Hidden("productId", item.productId)
+                                                                              @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                                                                              @Html.Bootstrap().SubmitButton().ButtonBlock().Text("Add To Cart").Class("btn btn-theme-colored btn-sm btn-flat pl-20 pr-20 btn-add-to-cart text-uppercase font-weight-700")
+                                                                              @*<input type="submit" class="btn btn-theme-colored btn-sm btn-flat pl-20 pr-20 btn-add-to-cart text-uppercase font-weight-700" value="Add To Cart" />*@
+                                                                       
+                                                                          @*<a class="btn btn-theme-colored btn-sm btn-flat pl-20 pr-20 btn-add-to-cart text-uppercase font-weight-700" href="" target="_blank">Add To Cart</a>*@
+                                                                      </div>
+
+                                                                  </div>
+
+                                                                  <div class="col-sm-4">
+                                                                    
+
+                                                                  </div>
+
+                                                                  <div class="col-sm-4">
+                                                                      <div class="btn-product-view-details">
+                                                                          @Html.Bootstrap().TextBox("quantity").Value(1).HtmlAttributes(new { type = "number" }).Class("btn btn-default btn-theme-colored btn-sm btn-flat pl-20 pr-20 btn-add-to-cart text-uppercase font-weight-700")
+
+                                                                          @*<a class="btn btn-default btn-theme-colored btn-sm btn-flat pl-20 pr-20 btn-add-to-cart text-uppercase font-weight-700" href="" target="_blank">View detail</a>*@
+                                                                      </div>
+
+                                                                  </div>
+
+
+                                                              </div>
+
+                                                      
+
+                                                       
+
+                                                          }
+                                                    </div>
+                                                </div>
+                                                <div class="product-details text-center">
+                                                    <a href="#"><h5 class="product-title">@item.productName</h5></a>
+                                                    @*<div class="star-rating" title="Rated 3.50 out of 5"><span style="width: 67%;">3.50</span></div>*@
+                                                    <div class="price"><ins><span class="amount">$ @item.Price</span></ins></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    }
+                                }
+                                else
+                                {
+
+                                    <p colspan="6">There are no items available for sale at the moment</p>
+
+                                }
+
+
+                            </div>                     
+                    </div> 
+                </div>
+
+
+
+                <div class="col-sm-12 col-md-3">
+                    <div class="sidebar sidebar-right mt-sm-30">
+                        @*<div class="widget">
+                            <h5 class="widget-title line-bottom">Search box</h5>
+                            <div class="search-form">
+                                <form>
+                                    <div class="input-group">
+                                        <input type="text" placeholder="Click to Search" class="form-control search-input">
+                                        <span class="input-group-btn">
+                                            <button type="submit" class="btn search-button"><i class="fa fa-search"></i></button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>*@
+                       
+                        <div class="widget">
+                            <h5 class="widget-title line-bottom">Cart</h5>
+                            <div class="top-sellers">
+
+                                @if (cart != null && cart.Lines.Count() > 0)
+                                {
+                                    <article class="post media-post clearfix pb-0 mb-10">
+                                        <div class="navbar-right">
+                                            @Html.Bootstrap().ActionLink("Go to cart", "Index", "Cart").Class("btn btn-success navbar-btn").RouteValues(new { returnUrl = Request.Url.PathAndQuery }).PrependIcon("fa fa-shopping-cart")
+                                        </div>
+                                        <div class="navbar-text navbar-right" style="margin-right:5px">
+                                            <b>Current Cart:</b>
+                                            @cart.Lines.Sum(x => x.Quantity) item(s),
+                                           $ @cart.computeTotalValue()
+                                        </div>
+
+                                    </article>
+                                }
+
+                                        @*<article class="post media-post clearfix pb-0 mb-10">
+                                            <a class="post-thumb" href="#"><img src="images/products/sm1.jpg" alt=""></a>
+                                            <div class="post-right">
+                                                <h5 class="post-title font-weight-600 mt-0 mb-0"><a href="#">Saddles</a></h5>
+                                                <div class="product-detail">
+                                                    <div class="price mb-10"><ins><span class="amount">$480.00</span></ins></div>
+                                                    <div title="Rated 3.50 out of 5" class="star-rating ml-0"><span style="width: 60%;">3.50</span></div>
+                                                </div>
+                                            </div>
+                                        </article>*@
+
+
+</div>
+                        </div>
+                      
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+

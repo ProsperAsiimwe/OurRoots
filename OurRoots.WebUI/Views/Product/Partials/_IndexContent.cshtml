@@ -1,0 +1,67 @@
+﻿@model OurRoots.WebUI.Models.Products.ProductListViewModel
+<!-- Section:  -->
+<section>
+    <div class="container pb-30">
+        <div class="section-content">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="col-md-12">
+
+                        <div class="col-md-8">
+                            <h3 class="line-bottom">Products.</h3>
+                        </div>
+
+                        <div class="col-md-4">
+                            @Html.Bootstrap().ActionLinkButton("New Product", "New", "Product").Style(ButtonStyle.Primary).AppendIcon("fa fa-plus")
+                        </div>
+
+                    </div>
+
+                  
+                        <div class="table">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Price (USD)</th>
+                                        <th>Image</th>
+                                        <th></th>
+                                        <th></th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Products.Count() > 0)
+                                    {
+                                        foreach (var item in Model.Products)
+                                        {
+                                            <tr>
+                                                <td>@item.productName</td>
+                                                <td>@item.description</td>
+                                                <td>@item.Price</td>
+                                                <td><img src="@(string.IsNullOrEmpty(item.FileName)? "~/content/assets/images/products/favicon.ico": @Url.Content(string.Format("~/content/productimages/{0}",item.FileName)))" alt="image" style="height:100px;max-width:100px;" /></td>
+                                                <td>@Html.Bootstrap().ActionLinkButton("Edit", "Edit").RouteValues(new { id = item.productId }).Style(ButtonStyle.Success)</td>
+                                                <td>@Html.Bootstrap().ActionLinkButton("Delete", "Delete").RouteValues(new { id = item.productId }).Style(ButtonStyle.Danger)</td>
+
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="6">There are no records matching your search criteria</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+

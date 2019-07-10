@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "Summary - " + Settings.COMPANY_NAME;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string companyName = Settings.COMPANY_NAME;
+}
+
+@Html.Partial("Partials/_SummeryContent")
+
+@section Scripts {
+}

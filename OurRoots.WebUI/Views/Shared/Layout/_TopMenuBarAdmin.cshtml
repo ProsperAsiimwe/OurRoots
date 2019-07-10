@@ -1,0 +1,62 @@
+﻿  <!-- Header -->
+<header id="header" class="header">
+    <div class="header-top p-0 bg-theme-colored xs-text-center" data-bg-img="~/Content/assets/images/root_footer.png">
+        <div class="container pt-20 pb-20">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="widget no-border m-0">
+                        <img src="~/Content/assets/images/logoTransp.png" alt="" style="max-width: 80px; height: 80px;">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="widget no-border clearfix m-0 mt-5">
+                        @*<ul class="list-inline pull-right flip sm-pull-none sm-text-center mt-5">
+                            <li>
+                                <a class="text-white" href="#">FAQ</a>
+                            </li>
+                            <li class="text-white">|</li>
+                            <li>
+                                <a class="text-white" href="#">Help Desk</a>
+                            </li>
+                            <li class="text-white">|</li>
+                            <li>
+                                <a class="text-white" href="#">Support</a>
+                            </li>
+                        </ul>*@
+                    </div>
+                    <div class="widget no-border clearfix m-0 mt-5">
+                        <ul class="styled-icons icon-gray icon-theme-colored icon-circled icon-sm pull-right flip sm-pull-none sm-text-center mt-sm-15">
+                            <li><a href="https://web.facebook.com/ourootsafrica"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="https://twitter.com/OurootsA"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="https://api.whatsapp.com/send?phone=256775178790"><i class="fa fa-whatsapp"></i></a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-nav">
+        <div class="header-nav-wrapper navbar-scrolltofixed bg-silver-light">
+            <div class="container">
+                <nav id="menuzord" class="menuzord default bg-silver-light">
+                    <ul class="menuzord-menu">
+
+                        @{
+                            Html.RenderPartial("Layout/_NavAdmin");
+                        }
+
+                    </ul>
+                    @*<ul class="list-inline pull-right flip hidden-sm hidden-xs">
+                            <li>
+                                <a class="btn btn-colored btn-flat btn-theme-colored mt-15 ajaxload-popup" href="ajax-load/donation-form.html">Donate Now</a>
+                            </li>
+                            <li>
+                                <a class="btn btn-colored btn-flat btn-theme-colored mt-15 ajaxload-popup" href="ajax-load/volunteer-apply-form.html">Join Us</a>
+                            </li>
+                        </ul>*@
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>

@@ -1,0 +1,40 @@
+﻿@model OurRoots.Domain.Models.Cart
+
+<!-- Section: inner-header -->
+<section class="inner-header divider parallax layer-overlay overlay-dark-5" data-bg-img="@Url.Content("~/Content/assets/images/bg/bg1.jpg")">
+    <div class="container pt-90 pb-50">
+        <!-- Section Content -->
+        <div class="section-content pt-100">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="title text-white">Summary</h3>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="section-content">
+            <div class="row mt-30">
+                @*<form id="checkout-form" action="#">*@
+                <div class="col-md-6">
+                    <div class="billing-details">
+                        <h3 class="mb-30">  @Html.ActionLink("Checkout", "Index", "Cart", new { returnUrl = Request.Url.PathAndQuery }, new { @class = "btn btn-default navbar-btn" })    </h3>
+
+                        <h2>Your Cart:</h2>
+                        @Model.Lines.Sum(x => x.Quantity) item(s),
+                        @Model.computeTotalValue().ToString("c")
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</section>
+

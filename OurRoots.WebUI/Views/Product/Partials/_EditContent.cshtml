@@ -1,0 +1,119 @@
+﻿@model OurRoots.WebUI.Models.Products.ProductViewModel
+
+@{
+    string action, cancel_url, glyph, buttonText, instr;
+}
+
+@*@if (Model.productId > 0)
+{
+    cancel_url = Url.Action("Show", new { ProductId = Model.productId });
+    action = "Update";
+    buttonText = "Update Product";
+    instr = "Modify the Product details and click Update to apply changes";
+    glyph = "glyphicon glyphicon-thumbs-up";
+    ViewBag.Title = "Update Product";
+}
+else
+{
+    cancel_url = Url.Action("Index");
+    action = "New";
+    buttonText = "Add Product";
+    instr = "Complete the form below to add a product in the kobs Shop";
+    glyph = "glyphicon glyphicon-plus";
+    ViewBag.Title = "Add Product";
+}*@
+
+
+<!-- Section:  -->
+<section>
+    <div class="container pb-30">
+        <div class="section-content">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <h4 class="mt-0 mb-30 line-bottom">Add new product.</h4>
+                        </div>
+
+                        <div class="col-md-6">
+                            @Html.Bootstrap().ActionLinkButton("Back", "Index", "Product").Style(ButtonStyle.Success)
+                        </div>
+
+                    </div>
+
+                     
+                        <br /><hr />
+
+                        <!-- Contact Form -->
+                        @using (Html.BeginForm("Update", "Product", FormMethod.Post, new { id = "contact_form", name = "contact_form", enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(p => p.productId)
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="row">
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+
+                                        @Html.Bootstrap().TextBoxFor(m => m.productName).Placeholder("Product Name").ShowValidationMessage(true).HtmlAttributes(new { @class = "form-control", type = "text", required = "" })
+                                        @Html.ValidationMessageFor(m => m.productName, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        @Html.Bootstrap().TextBoxFor(m => m.description).Placeholder("Description").ShowValidationMessage(true).HtmlAttributes(new { @class = "form-control", type = "text", required = "" })
+                                        @Html.ValidationMessageFor(m => m.description, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+
+                                        @Html.Bootstrap().TextBoxFor(m => m.Price).Placeholder("Price (USD)").ShowValidationMessage(true).HtmlAttributes(new { @class = "form-control", type = "text", required = "" })
+                                        @Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+
+                                        @Html.LabelFor(m => m.ProductImage)
+                                        @*<input type="file" name="ImageFile" required>*@
+                                        @Html.Bootstrap().FileFor(p => p.ProductImage)
+                                        @Html.ValidationMessageFor(m => m.ProductImage, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group">
+                                @Html.Bootstrap().SubmitButton().Class("btn btn-primary").Text("Edit")
+                                @*<button type="submit" class="btn btn-dark btn-theme-colored btn-flat mr-5" data-loading-text="Please wait...">Upload</button>*@
+                                <button type="reset" class="btn btn-default btn-flat btn-theme-colored">Reset</button>
+                            </div>
+
+                        }
+
+
+
+                    </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+

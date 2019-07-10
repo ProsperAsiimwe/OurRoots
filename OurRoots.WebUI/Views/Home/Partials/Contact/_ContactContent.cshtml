@@ -1,0 +1,144 @@
+﻿@model OurRoots.WebUI.Models.ContactMessages.ContactMessageViewModel
+
+<!-- Section: inner-header -->
+<section class="inner-header divider parallax layer-overlay overlay-dark-5" data-stellar-background-ratio="0.5" data-bg-img="@Url.Content("~/Content/assets/images/gallery/4.jpeg")">
+    <div class="container pt-100 pb-50">
+        <!-- Section Content -->
+        <div class="section-content pt-100">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="title text-white">Contact</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Divider: Contact -->
+<section class="divider">
+    <div class="container pt-0">
+        <div class="row mb-60 bg-deep">
+            <div class="col-sm-12 col-md-4">
+                <div class="contact-info text-center pt-60 pb-60 border-right">
+                    <i class="fa fa-phone font-36 mb-10 text-theme-colored"></i>
+                    <h4>Call Us</h4>
+                    <h6 class="text-gray">Phone: @Settings.COMPANY_PHONE</h6>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <div class="contact-info text-center  pt-60 pb-60 border-right">
+                    <i class="fa fa-map-marker font-36 mb-10 text-theme-colored"></i>
+                    <h4>Address</h4>
+                    <h6 class="text-gray">@Settings.COMPANY_ADDRESS</h6>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <div class="contact-info text-center  pt-60 pb-60">
+                    <i class="fa fa-envelope font-36 mb-10 text-theme-colored"></i>
+                    <h4>Email</h4>
+                    <h6 class="text-gray">@Settings.COMPANY_EMAIL</h6>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-10">
+            <div class="col-md-5">
+                <h4 class="mt-0 mb-30 line-bottom">Find Our Location</h4>
+                <!-- Google Map HTML Codes -->
+                <iframe 
+                   src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCamjh0yNXf7r7pv4PaOOW5xv8H7HaXQ8I&amp&q=Social+Innovation+Academy+(SINA)" 
+                        width="600" height="450" frameborder="0" style="border:0" zoom="5" allowfullscreen>
+
+                </iframe>
+            </div>
+            <div class="col-md-7">
+                <h4 class="mt-0 mb-30 line-bottom">Interested in discussing?</h4>
+                <!-- Contact Form -->
+                @using (Html.BeginForm("Contact", "Home", FormMethod.Post, new { id = "contact_form", name = "contact_form" }))
+                {
+                    <div class="row">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Name)
+                                    @Html.Bootstrap().TextBoxFor(m => m.Name).ShowValidationMessage(true).HtmlAttributes(new { @class = "form-control", required="", id = "form_name" })
+                                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Email)
+                                    @Html.Bootstrap().TextBoxFor(m => m.Email).ShowValidationMessage(true).HtmlAttributes(new { @class = "form-control", required = "", id = "form_email" })
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Phone)
+                                    @Html.Bootstrap().TextBoxFor(m => m.Phone).ShowValidationMessage(true).HtmlAttributes(new { @class = "form-control", required = "", id = "form_phone" })
+                                    @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Subject)
+                                    @Html.Bootstrap().TextBoxFor(m => m.Subject).ShowValidationMessage(true).HtmlAttributes(new { @class = "form-control", required = "", id = "form_subject" })
+                                    @Html.ValidationMessageFor(m => m.Subject, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                           
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Message)
+                            @Html.Bootstrap().TextAreaFor(m => m.Message).ShowValidationMessage(true).HtmlAttributes(new { @class = "form-control", required = "", id = "form_message" })
+                            @Html.ValidationMessageFor(m => m.Message, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Bootstrap().SubmitButton().Class("btn btn-primary").Text("Send")
+                            <button type="reset" class="btn btn-default btn-flat btn-theme-colored">Reset</button>
+                        </div>
+
+                    </div>
+
+                }
+
+
+                <!-- Contact Form Validation-->
+
+                @*<script type="text/javascript">
+              $("#contact_form").validate({
+                submitHandler: function(form) {
+                  var form_btn = $(form).find('button[type="submit"]');
+                  var form_result_div = '#form-result';
+                  $(form_result_div).remove();
+                  form_btn.before('<div id="form-result" class="alert alert-success" role="alert" style="display: none;"></div>');
+                  var form_btn_old_msg = form_btn.html();
+                  form_btn.html(form_btn.prop('disabled', true).data("loading-text"));
+                  $(form).ajaxSubmit({
+                    dataType:  'json',
+                    success: function(data) {
+                      if( data.status == 'true' ) {
+                        $(form).find('.form-control').val('');
+                      }
+                      form_btn.prop('disabled', false).html(form_btn_old_msg);
+                      $(form_result_div).html(data.message).fadeIn('slow');
+                      setTimeout(function(){ $(form_result_div).fadeOut('slow') }, 6000);
+                    }
+                  });
+                }
+              });
+                </script>*@
+
+            </div>
+        </div>
+    </div>
+</section>
+

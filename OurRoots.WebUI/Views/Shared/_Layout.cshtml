@@ -1,0 +1,57 @@
+﻿@{
+    string companyName = Settings.COMPANY_NAME;
+    string subNavLabel = ViewBag.SubNavLabel ?? "Actions";
+    bool isAuthenticated = (User.Identity.IsAuthenticated);
+    bool isAdmin = (isAuthenticated) && (PageData["isAdmin"]);
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title - @Settings.COMPANY_NAME</title>
+    @Html.Partial("Layout/_Head")
+    @RenderSection("Header", required: false)
+</head>
+<body class="">
+
+  
+
+    <div id="wrapper" class="clearfix">
+
+        <!-- preloader -->
+        <div id="preloader">
+            <div id="spinner">
+                <img class="floating" src="~/Content/assets/images/preloaders/roots.gif" alt="">
+                <h5 class="line-height-50 font-18 ml-15">Our Roots Africa Loading...</h5>
+            </div>
+            @*<div id="disable-preloader" class="btn btn-default btn-sm">Disable Preloader</div>*@
+        </div> 
+
+        @{
+            Html.RenderPartial("Layout/_TopMenuBar");
+        }
+
+        <main>
+            <!-- Start main-content -->
+            <div class="main-content">
+
+                @RenderBody()
+
+            </div>
+
+
+        </main>
+
+
+        @{
+            Html.RenderPartial("Layout/_Footer");
+        }
+
+</div>
+   
+  
+        
+    @Html.Partial("Layout/_Scripts") 
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

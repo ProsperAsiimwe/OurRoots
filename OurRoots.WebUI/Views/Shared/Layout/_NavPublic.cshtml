@@ -1,0 +1,30 @@
+﻿@using OurRoots.WebUI.Infrastructure.Helpers;
+@{ 
+    var active = ViewBag.Active;//.Class()
+}
+<li class="@(active == "Home" ? "active" : "")">
+    @*@Html.NavigationLink("Home", "Index", "Home")*@   
+    @Html.Bootstrap().ActionLink("Home", "Index", "Home") 
+</li>
+
+<li class="@(active == "About" ? "active" : "")">
+    @Html.Bootstrap().ActionLink("About Us", "About", "Home")
+</li>
+
+<li class="@(active == "Gallery" ? "active" : "")">
+   @Html.Bootstrap().ActionLink("Gallery", "Gallery", "Home")
+</li>
+
+
+
+<li class="@(active == "Shop" ? "active" : "")">
+    @Html.NavigationLink("Shop", "Shop", "Home")
+</li>
+
+
+
+<li class="@(active == "Contact" ? "active" : "")">
+    @Html.Bootstrap().ActionLink("Contact", "Contact", "Home")
+</li>
+
+

@@ -1,0 +1,33 @@
+﻿@using OurRoots.WebUI.Models.Account
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = "~/Views/Shared/_Console.cshtml";
+    string companyName = Settings.COMPANY_NAME;
+}
+
+<h1 class="error">@Settings.COMPANY_NAME</h1>
+<div class="w3layouts-two-grids">
+    <div class="mid-class">
+        <div class="txt-left-side">
+            <h2> Login Here </h2>
+            <br/><br/>
+
+            @Html.Partial("Partials/_Login", Model)
+
+        </div>
+
+        <div class="img-right-side">
+            @*<h3>Welcome To Allied Login Form</h3>
+            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget</p>*@
+            <img src="~/Content/loginAssets/images/clearLogo.jpeg" class="img-fluid" alt="logo">
+            <p>Partnering with the Earth</p>
+            @*<img src="~/Content/loginAssets/images/team2.png" class="img-fluid" alt="">*@
+        </div>
+
+        </div>
+
+    </div>
+    @section Scripts {
+
+    }

@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title - @Settings.COMPANY_NAME</title>
+    @Html.Partial("Layout/_HeadLogin")
+  
+</head>
+<body>
+   
+    <main>
+        @RenderBody()
+    </main>
+              
+    <footer class="copyrigh-wthree">
+        <p>
+            Copyright &copy; @DateTime.Today.Year, @Settings.COMPANY_NAME
+        </p>
+    </footer>
+
+@RenderSection("scripts", required: false)
+</body>
+</html>

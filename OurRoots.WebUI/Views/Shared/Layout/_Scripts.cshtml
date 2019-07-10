@@ -1,0 +1,18 @@
+﻿
+@Scripts.Render("~/bundles/sitescripts")
+@Html.Partial("Forms/_JQueryVal")
+
+@*@Scripts.Render("~/bundles/GalleryScripts")*@
+
+
+<script>
+  echo.init();
+</script>
+
+<script>
+    $(".images-grid-demo").imagesGrid();
+    $(".images-grid-demo").imagesGrid({ rowHeight: 350 });
+    $(".images-grid-demo").imagesGrid({ margin: 2 });
+    
+</script>
+
